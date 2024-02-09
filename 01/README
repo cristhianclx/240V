@@ -1,8 +1,20 @@
-python3 -m venv venv # 1st time
+# 1st time
 
-source venv/bin/activate # always
-pip install -r requirements.txt # always
+python3 -m venv venv
+source venv/bin/activate # linux
+venv\Scripts\activate.bat # windows
+pip install -r requirements.txt
+django-admin startproject project
+python project/manage.py runserver
+python project/manage.py startapp web # to create an app
+# installed apps in settings.py / add "web"
 
-django-admin startproject project # 1st time
+# 2nd time o +
+source venv/bin/activate # linux
+venv\Scripts\activate.bat # windows
+pip install -r requirements.txt
+python project/manage.py runserver
 
-python project/manage.py runserver # when you want to run this
+# utils
+python project/manage.py makemigrations
+python project/manage.py migrate
