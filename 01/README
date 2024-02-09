@@ -16,5 +16,6 @@ pip install -r requirements.txt
 python project/manage.py runserver
 
 # utils
-python project/manage.py makemigrations
-python project/manage.py migrate
+python project/manage.py makemigrations # crear la migracion para la base de datos
+python project/manage.py migrate # aplicar la migracion para la base de datos
+python project/manage.py createsuperuser # users
