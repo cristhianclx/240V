@@ -40,3 +40,24 @@ def reviewDeleteView(request, index):
     if request.method == "POST":
         item.delete()
         return redirect("/reviews/")
+
+def reviewUpdateView(request, index):
+    item = Review.objects.get(id = index)
+    success = False
+    if request.method == "GET":
+        form = ReviewForm(instance = item)
+        return render(request, 'reviews/update.html', {
+            "form": form,
+            "item": item,
+        })
+    if request.method == "POST":
+        form = ReviewForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            success = True
+        return render(request, 'reviews/update.html', {
+            "form": form,
+            "item": item,
+            "success": success,
+        })
+

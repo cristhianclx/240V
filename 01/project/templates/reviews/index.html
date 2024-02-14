@@ -46,6 +46,7 @@
             </td>
             <td>
                 <a href="{% url 'reviews-detail' index=item.id %}" class="btn btn-info">View details</a>
+                <a href="{% url 'reviews-update' index=item.id %}" class="btn btn-info">Update</a>
                 <a href="{% url 'reviews-delete' index=item.id %}" class="btn btn-danger">Delete</a>
             </td>
           </tr>
