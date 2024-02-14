@@ -48,7 +48,7 @@
                 <a href="{% url 'reviews-detail' index=item.id %}" class="btn btn-info">View details</a>
                 <a href="{% url 'reviews-update' index=item.id %}" class="btn btn-info">Update</a>
                 <a href="{% url 'reviews-delete' index=item.id %}" class="btn btn-danger">Delete</a>
-                <a href="#" class="btn btn-primary">Details</a>
+                <a href="{% url 'reviews-details' index=item.id %}" class="btn btn-primary">Details</a>
             </td>
           </tr>
            {% empty %}

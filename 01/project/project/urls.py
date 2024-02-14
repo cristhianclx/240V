@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from web.views import reviewView, reviewAddView, reviewDetailView, reviewDeleteView, reviewUpdateView
+from web.views import reviewView, reviewAddView, reviewDetailView, reviewDeleteView, reviewUpdateView, reviewDetailsListView, reviewDetailsAddView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,5 +25,7 @@ urlpatterns = [
     path('reviews/<index>/', reviewDetailView, name="reviews-detail"),
     path('reviews/<index>/delete/', reviewDeleteView, name="reviews-delete"),
     path('reviews/<index>/update/', reviewUpdateView, name="reviews-update"),
+    path('reviews/<index>/details/', reviewDetailsListView, name="reviews-details"),
+    path('reviews/<index>/details/add/', reviewDetailsAddView, name="reviews-details-add"),
 ]
 

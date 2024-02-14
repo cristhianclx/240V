@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Review
-from .forms import ReviewForm
+from .models import Review, ReviewDetail
+from .forms import ReviewForm, ReviewDetailForm
 
 def reviewView(request):
     items = Review.objects.all()
@@ -61,3 +61,32 @@ def reviewUpdateView(request, index):
             "success": success,
         })
 
+def reviewDetailsListView(request, index):
+    item = Review.objects.get(id = index)
+    items = ReviewDetail.objects.filter(review = item).all()
+    return render(request, 'review-details/index.html', {
+        "items": items,
+        "item": item,
+    })
+
+def reviewDetailsAddView(request, index):
+    item = Review.objects.get(id = index)
+    success = False
+    if request.method == "GET":
+        form = ReviewDetailForm()
+        return render(request, 'review-details/add.html', {
+            "form": form,
+            "item": item,
+        })
+    if request.method == "POST":
+        form = ReviewDetailForm(request.POST)
+        if form.is_valid():
+            review_detail = form.save(commit=False)
+            review_detail.review = item
+            review_detail.save()
+            success = True
+        return render(request, 'review-details/add.html', {
+            "form": form,
+            "item": item,
+            "success": success,
+        })
