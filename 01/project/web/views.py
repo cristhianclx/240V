@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Review
 from .forms import ReviewForm
 
@@ -39,3 +39,4 @@ def reviewDeleteView(request, index):
         })
     if request.method == "POST":
         item.delete()
+        return redirect("/reviews/")
