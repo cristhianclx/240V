@@ -11,3 +11,7 @@ class Review(models.Model):
         verbose_name="Review",
         blank=False,
     )
+    rating = models.PositiveIntegerField(
+        verbose_name="Rating (1-5)",
+        blank=False,
+    )
