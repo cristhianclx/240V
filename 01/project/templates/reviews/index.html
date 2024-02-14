@@ -27,9 +27,27 @@
             <th scope="row">{{ item.id }}</th>
             <td>{{ item.name }}</td>
             <td>{{ item.review }}</td>
-            <td>{{ item.rating }}</td>
-            <!-- rating==1 :( .... rating==5 :)-->
-            <td>OPTIONS</td>
+            <td>
+                {% if item.rating == 1 %}
+                😭
+                {% endif %}
+                {% if item.rating == 2 %}
+                🥲
+                {% endif %}
+                {% if item.rating == 3 %}
+                😔
+                {% endif %}
+                {% if item.rating == 4 %}
+                🙂
+                {% endif %}
+                {% if item.rating == 5 %}
+                🥹
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'reviews-detail' index=item.id %}" class="btn btn-info">View details</a>
+                <a href="{% url 'reviews-delete' index=item.id %}" class="btn btn-danger">Delete</a>
+            </td>
           </tr>
            {% empty %}
            <p>No data</p>

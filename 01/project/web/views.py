@@ -24,3 +24,18 @@ def reviewAddView(request):
             "form": form,
             "success": success,
         })
+
+def reviewDetailView(request, index):
+    item = Review.objects.get(id = index)
+    return render(request, 'reviews/detail.html', {
+        "item": item,
+    })
+
+def reviewDeleteView(request, index):
+    item = Review.objects.get(id = index)
+    if request.method == "GET":
+        return render(request, 'reviews/delete.html', {
+           "item": item,
+        })
+    if request.method == "POST":
+        item.delete()

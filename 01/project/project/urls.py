@@ -16,11 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from web.views import reviewView, reviewAddView
+from web.views import reviewView, reviewAddView, reviewDetailView, reviewDeleteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('reviews/', reviewView, name="reviews-index"),
     path('reviews/add/', reviewAddView, name="reviews-add"),
+    path('reviews/<index>/', reviewDetailView, name="reviews-detail"),
+    path('reviews/<index>/delete/', reviewDeleteView, name="reviews-delete"),
 ]
 
