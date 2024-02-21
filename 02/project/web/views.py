@@ -6,7 +6,9 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from .serializers import UserSerializer, ReviewSerializer, ReviewDetailSerializer, EditionSerializer
 from .models import Review, ReviewDetail, Edition
-
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_cookie, vary_on_headers
 
 class PingView(View):
     def get(self, request):
@@ -48,6 +50,18 @@ class ReviewDetailView(viewsets.ModelViewSet): # CRUD
         serializer.save(review=review_parent)
 
 
-class EditionView(viewsets.ReadOnlyModelViewSet):
-    queryset = Edition.objects.all()
+#class EditionView(viewsets.ReadOnlyModelViewSet):
+#    queryset = Edition.objects.select_related('book', 'book__author',).all()
+#    serializer_class = EditionSerializer
+
+
+class EditionView(viewsets.ViewSet):
+    queryset = Edition.objects.select_related('book', 'book__author',).all()
     serializer_class = EditionSerializer
+
+    @method_decorator(cache_page(60 * 60 * 24))
+    @method_decorator(vary_on_cookie)
+    def list(self, request, format=None):
+        queryset = Edition.objects.select_related('book', 'book__author',).all()
+        content = self.serializer_class(queryset, many=True)
+        return Response(content.data)

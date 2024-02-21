@@ -34,6 +34,7 @@ urlpatterns = [
         description="API for students",
         version="0.0.1"
     ), name='openapi-schema'),
+    path("__debug__/", include("debug_toolbar.urls")),
     path(
         "docs/",
         TemplateView.as_view(
