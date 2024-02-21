@@ -1,11 +1,11 @@
-from rest_framework import routers, serializers, viewsets, status
+from rest_framework import routers, serializers, viewsets, status, permissions
 from django.http import JsonResponse
 from django.views.generic import View
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework.response import Response
-from .serializers import UserSerializer, ReviewSerializer, ReviewDetailSerializer
-from .models import Review, ReviewDetail
+from .serializers import UserSerializer, ReviewSerializer, ReviewDetailSerializer, EditionSerializer
+from .models import Review, ReviewDetail, Edition
 
 
 class PingView(View):
@@ -22,6 +22,7 @@ class UserView(viewsets.ModelViewSet): # CRUD
 
 
 class ReviewView(viewsets.ModelViewSet): # CRUD
+    permission_classes = [permissions.IsAuthenticated]
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     filterset_fields = ['rating',]
@@ -47,3 +48,6 @@ class ReviewDetailView(viewsets.ModelViewSet): # CRUD
         serializer.save(review=review_parent)
 
 
+class EditionView(viewsets.ReadOnlyModelViewSet):
+    queryset = Edition.objects.all()
+    serializer_class = EditionSerializer

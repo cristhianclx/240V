@@ -20,8 +20,11 @@ from django.views.generic import TemplateView
 from web.routers import router as router_web
 from web.views import PingView
 from rest_framework.schemas import get_schema_view
+from rest_framework.authtoken import views
+
 
 urlpatterns = [
+    path('api-token-auth/', views.obtain_auth_token),
     path('admin/', admin.site.urls),
     path('ping/', PingView.as_view(), name="ping"),
     path('api-auth/', include('rest_framework.urls')),

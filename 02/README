@@ -94,3 +94,7 @@ GET http://127.0.0.1:8000/web/reviews/
 GET http://127.0.0.1:8000/web/reviews/?rating__gte=3&rating__lte=5 # rating >=3 y <=5
 
 GET http://127.0.0.1:8000/web/reviews/?search=cristhian
+
+
+# prod
+gunicorn -c /home/cristhian/www/cibertec/240V/02/gunicorn.py project.wsgi

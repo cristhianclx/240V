@@ -28,3 +28,48 @@ class ReviewDetail(models.Model):
         verbose_name="Detail",
         blank=False,
     )
+
+
+class Author(models.Model):
+    name = models.CharField(
+        verbose_name="Name",
+        max_length=100,
+        blank=False,
+    )
+
+    def __str__(self):
+        return "{}".format(self.name)
+
+
+class Book(models.Model):
+    name = models.CharField(
+        verbose_name="Name",
+        max_length=100,
+        blank=False,
+    )
+    author = models.ForeignKey(
+        Author,
+        verbose_name="Author",
+        blank=False,
+        on_delete=models.CASCADE,
+    )
+
+    def __str__(self):
+        return "{} / {}".format(self.name, self.author)
+
+
+class Edition(models.Model):
+    name = models.CharField(
+        verbose_name="Name",
+        max_length=100,
+        blank=False,
+    )
+    book = models.ForeignKey(
+        Book,
+        verbose_name="Book",
+        blank=False,
+        on_delete=models.CASCADE,
+    )
+
+    def __str__(self):
+        return "{} / {}".format(self.name, self.book)

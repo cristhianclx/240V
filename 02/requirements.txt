@@ -1,5 +1,6 @@
 Django==4.2
 djangorestframework==3.14.0
+gunicorn[gevent]
 Markdown==3.5.2
 django-filter==23.5
 PyYAML==6.0.1
