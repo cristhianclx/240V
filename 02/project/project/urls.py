@@ -18,10 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from web.routers import router as router_web
+from web.views import PingView
 from rest_framework.schemas import get_schema_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('ping/', PingView.as_view(), name="ping"),
     path('api-auth/', include('rest_framework.urls')),
     path('web/', include(router_web.urls)),
     path('openapi', get_schema_view(

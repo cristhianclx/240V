@@ -21,6 +21,9 @@ python project/manage.py migrate # aplicar la migracion para la base de datos
 python project/manage.py createsuperuser # users
 pip freeze # puedes ver lo instalado
 
+# test - unit
+python project/manage.py test web.tests
+
 
 # docs
 

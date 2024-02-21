@@ -21,12 +21,11 @@ class ReviewSerializer(serializers.ModelSerializer):
         ]
 
 
-class ReviewDetail(serializers.ModelSerializer):
+class ReviewDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ReviewDetail
         fields = [
             'id',
-            'review',
             'detail',
         ]
