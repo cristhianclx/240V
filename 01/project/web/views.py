@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render, redirect
 from .models import Review, ReviewDetail
 from .forms import ReviewForm, ReviewDetailForm
@@ -62,7 +63,10 @@ def reviewUpdateView(request, index):
         })
 
 def reviewDetailsListView(request, index):
-    item = Review.objects.get(id = index)
+    try:
+        item = Review.objects.get(id = index)
+    except Review.DoesNotExist:
+        raise Http404
     items = ReviewDetail.objects.filter(review = item).all()
     return render(request, 'review-details/index.html', {
         "items": items,
@@ -70,7 +74,10 @@ def reviewDetailsListView(request, index):
     })
 
 def reviewDetailsAddView(request, index):
-    item = Review.objects.get(id = index)
+    try:
+        item = Review.objects.get(id = index)
+    except Review.DoesNotExist:
+        raise Http404
     success = False
     if request.method == "GET":
         form = ReviewDetailForm()

@@ -1,0 +1,87 @@
+# 1st time
+
+python3 -m venv venv
+source venv/bin/activate # linux
+venv\Scripts\activate.bat # windows
+pip install -r requirements.txt
+django-admin startproject project
+python project/manage.py runserver
+cd project && python manage.py startapp web # to create an app
+# installed apps in settings.py / add "web"
+
+# 2nd time o +
+source venv/bin/activate # linux
+venv\Scripts\activate.bat # windows
+pip install -r requirements.txt
+python project/manage.py runserver
+
+# utils
+python project/manage.py makemigrations # crear la migracion para la base de datos
+python project/manage.py migrate # aplicar la migracion para la base de datos
+python project/manage.py createsuperuser # users
+pip freeze # puedes ver lo instalado
+
+
+# docs
+
+GET http://127.0.0.1:8000/web/users/ LIST
+
+[
+    {
+        "id": 1,
+        "username": "cristhian",
+        "email": "",
+        "is_staff": true
+    },
+    {
+        "id": 2,
+        "username": "jesus",
+        "email": "jesus@gmail.com",
+        "is_staff": false
+    }
+]
+
+POST http://127.0.0.1:8000/web/users/ CREATE
+
+{
+    "username": "jesus",
+    "email": "jesus@gmail.com",
+    "is_staff": false
+}
+
+HTTP 201 Created
+Allow: GET, POST, HEAD, OPTIONS
+Content-Type: application/json
+Location: http://127.0.0.1:8000/web/users/2/
+Vary: Accept
+
+{
+    "url": "http://127.0.0.1:8000/web/users/2/",
+    "username": "jesus",
+    "email": "jesus@gmail.com",
+    "is_staff": false
+}
+
+GET http://127.0.0.1:8000/web/users/1/
+
+{
+    "id": 1,
+    "username": "cristhian",
+    "email": "",
+    "is_staff": true
+}
+
+PATCH http://127.0.0.1:8000/web/users/1/
+
+{
+    "email": "cristhianclx@gmail.com"
+}
+
+{
+    "id": 1,
+    "username": "cristhian",
+    "email": "cristhianclx@gmail.com",
+    "is_staff": true
+}
+
+DELETE http://127.0.0.1:8000/web/users/2/
