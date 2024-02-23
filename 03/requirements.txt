@@ -1,5 +1,6 @@
 black
 Django==4.2
+flake8
 nltk
 pandas
 scikit-learn
