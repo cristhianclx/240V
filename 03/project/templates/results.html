@@ -11,20 +11,13 @@
     <div class="container my-5">
         <h1 class="text-body-emphasis">Empleos recomendados</h1>
         <hr>
+        {% for match in matches %}
         <div>
-            <h2>Empleo 1: Analista de créditos</h2>
+            <h2>Empleo {{ forloop.counter }}: {{ match.position }}</h2>
+            <p>{{ match.ranking|floatformat:4 }}%</p>
             <a href="#">Postular</a>
         </div>
-
-        <div>
-            <h2>Empleo 2: Analista de créditos</h2>
-            <a href="#">Postular</a>
-        </div>
-
-        <div>
-            <h2>Empleo 3: Analista de créditos</h2>
-            <a href="#">Postular</a>
-        </div>
+        {% endfor %}
         <hr>
 
 
