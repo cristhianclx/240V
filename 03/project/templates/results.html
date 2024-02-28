@@ -15,7 +15,7 @@
         <div>
             <h2>Empleo {{ forloop.counter }}: {{ match.position }}</h2>
             <p>{{ match.ranking|floatformat:4 }}%</p>
-            <a href="#">Postular</a>
+            <a href="{{ match.url }}" target="_blank">Postular</a>
         </div>
         {% endfor %}
         <hr>

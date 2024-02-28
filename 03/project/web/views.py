@@ -4,10 +4,15 @@ from django.views.generic import View
 
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
+import nltk
 
 from .models import Document, DocumentMatch
 from .forms import DocumentForm
-from .utils import parseFileInformation, wrangler, job_vectorizer, job_matrix, ranker, allow_only_peruvian_people
+from .utils import parseFileInformation, wrangler, job_vectorizer, job_matrix, ranker
+
+
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
 
 
 class IndexView(View):
@@ -29,7 +34,10 @@ class IndexView(View):
             parsed_information_raw = parseFileInformation(instance.document)
             if instance.motivation_document:
                 parsed_information_raw = parsed_information_raw + parseFileInformation(instance.motivation_document)
-            if not allow_only_peruvian_people(parsed_information_raw):
+            # only allow peruvian CVs
+            tokens = nltk.word_tokenize(parsed_information_raw)
+            tagged = nltk.pos_tag(tokens)
+            if not ("Peru", "NNP") in tagged:
                 return redirect("index")
             parsed_information = wrangler(parsed_information_raw)
             cv_serie = pd.Series(parsed_information)
@@ -44,6 +52,7 @@ class IndexView(View):
                     match_to_save.append(
                         DocumentMatch(
                             position=ranker_final["PUESTO"][rank_ind],
+                            url=ranker_final["URL"][rank_ind],
                             ranking=ranker_final["RANKING"][rank_ind] * 100,
                             document=instance,
                         )

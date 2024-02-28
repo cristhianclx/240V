@@ -42,14 +42,10 @@ def parseFileInformation(filename):
         return "\n".join(fullText)
     return None
 
+
 def wrangler(raw):
     letras = re.sub("[^a-zA-ZáóéíúñÑ]", " ", raw)
     words = letras.lower().split()
     stops = set(stopwords.words("spanish"))
     meaningful_words = [w for w in words if not w in stops]
     return " ".join(meaningful_words)
-
-
-def allow_only_peruvian_people(cv_parsed):
-    # peru, +51, Address: Peru, Direccion: Peru
-    return True

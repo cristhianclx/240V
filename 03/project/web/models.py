@@ -23,6 +23,9 @@ class DocumentMatch(models.Model):
         max_length=255,
         blank=False,
     )
+    url = models.URLField(
+        blank=True,
+    )
     ranking = models.DecimalField(
         max_digits=35,
         decimal_places=30,
