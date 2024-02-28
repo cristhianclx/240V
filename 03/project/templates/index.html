@@ -26,7 +26,12 @@
         <form method="POST" action="{% url 'index' %}" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
             <div class="mb-3">
+              <label class="form-label">{{ form.document.label }} <span class="badge text-bg-secondary">Supported files (docx, pdf)</span></label>
                 {{ form.document }}
+              </div>
+              <div class="mb-3">
+                <label class="form-label">{{ form.motivation_document.label }} <span class="badge text-bg-secondary">Supported files (docx, pdf)</span> (es opcional)</label>
+                {{ form.motivation_document }}
               </div>
               <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary btn-lg">Buscar empleo</button>

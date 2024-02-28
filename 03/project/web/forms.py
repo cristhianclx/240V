@@ -10,7 +10,14 @@ class DocumentForm(forms.ModelForm):
             attrs={"class": "form-control form-control-lg"},
         ),
     )
+    motivation_document = forms.FileField(
+        label="Subir carta de motivación",
+        widget=forms.FileInput(
+            attrs={"class": "form-control form-control-lg"},
+        ),
+        required=False,
+    )
 
     class Meta:
         model = Document
-        fields = ("document",)
+        fields = ("document","motivation_document",)

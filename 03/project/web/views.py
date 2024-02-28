@@ -7,7 +7,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 from .models import Document, DocumentMatch
 from .forms import DocumentForm
-from .utils import parseFileInformation, wrangler, job_vectorizer, job_matrix, ranker
+from .utils import parseFileInformation, wrangler, job_vectorizer, job_matrix, ranker, allow_only_peruvian_people
 
 
 class IndexView(View):
@@ -27,6 +27,10 @@ class IndexView(View):
         if form.is_valid():
             instance = form.save()
             parsed_information_raw = parseFileInformation(instance.document)
+            if instance.motivation_document:
+                parsed_information_raw = parsed_information_raw + parseFileInformation(instance.motivation_document)
+            if not allow_only_peruvian_people(parsed_information_raw):
+                return redirect("index")
             parsed_information = wrangler(parsed_information_raw)
             cv_serie = pd.Series(parsed_information)
             cv_matrix = job_vectorizer.transform(cv_serie)

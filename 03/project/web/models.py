@@ -5,6 +5,10 @@ class Document(models.Model):
     document = models.FileField(
         upload_to="documents",
     )
+    motivation_document = models.FileField(
+        upload_to="motivation-documents",
+        blank=True,
+    )
     created_at = models.DateTimeField(
         auto_now_add=True,
     )
