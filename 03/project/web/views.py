@@ -2,6 +2,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from django.views.generic import View
 
+import math
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 import nltk
@@ -48,7 +49,7 @@ class IndexView(View):
             ranker_final = ranker.sort_values("RANKING", ascending=False)
             match_to_save = []
             for rank_ind in ranker_final.index:
-                if ranker_final["RANKING"][rank_ind] >= 0.15:
+                if ranker_final["RANKING"][rank_ind] >= 0.05:
                     match_to_save.append(
                         DocumentMatch(
                             position=ranker_final["PUESTO"][rank_ind],
@@ -66,22 +67,37 @@ class IndexView(View):
 class ResultsView(View):
 
     def get(self, request, id):
+        limit = 10
         try:
             instance = Document.objects.get(id=id)
         except Document.DoesNotExist:
             raise Http404
-        matches = (
+        page = request.GET.get("page", 1)
+        try:
+            page = int(page)
+        except:
+            page = 1
+        if page <= 0:
+            page = 1
+        matches_all = (
             DocumentMatch.objects.filter(
                 document=instance,
             )
             .all()
             .order_by("-ranking")
         )
+        matches = matches_all[(page -1)*limit : page * limit]
         return render(
             request,
             "results.html",
             {
                 "instance": instance,
                 "matches": matches,
+                "limit": 10,
+                "offset": 10*(page - 1),
+                "page": page,
+                "page_previous": page - 1,
+                "page_next": page + 1,
+                "number_pages": math.ceil(matches_all.count() / 10)
             },
         )

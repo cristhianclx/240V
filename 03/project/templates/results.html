@@ -11,9 +11,35 @@
     <div class="container my-5">
         <h1 class="text-body-emphasis">Empleos recomendados</h1>
         <hr>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item">
+              <a class="page-link" href="{% url 'results' id=instance.id %}?page=1" aria-label="Init">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="{% url 'results' id=instance.id %}?page={{ page_previous }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="{% url 'results' id=instance.id %}?page={{page}}">{{ page }}</a></li>
+            <li class="page-item">
+              <a class="page-link" href="{% url 'results' id=instance.id %}?page={{ page_next }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            <li class="page-item">
+              <a class="page-link" href="{% url 'results' id=instance.id %}?page={{number_pages}}" aria-label="Last">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <hr>
         {% for match in matches %}
         <div>
-            <h2>Empleo {{ forloop.counter }}: {{ match.position }}</h2>
+            <h2>Empleo {{ forloop.counter|add:offset }}: {{ match.position }}</h2>
             <p>{{ match.ranking|floatformat:4 }}%</p>
             <a href="{{ match.url }}" target="_blank">Postular</a>
         </div>
@@ -21,6 +47,7 @@
         <hr>
 
 
+        
         <form method="POST" action="#" novalidate>
             {% csrf_token %}
             <div class="mb-3">
