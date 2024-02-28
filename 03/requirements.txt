@@ -5,3 +5,5 @@ nltk
 pandas
 scikit-learn
 python-docx
+python-magic
+pypdf
