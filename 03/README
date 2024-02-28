@@ -20,3 +20,13 @@ python project/manage.py makemigrations # crear la migracion para la base de dat
 python project/manage.py migrate # aplicar la migracion para la base de datos
 python project/manage.py createsuperuser # users
 pip freeze # puedes ver lo instalado
+
+#
+heroku login
+Procfile
+heroku create
+git add .
+git commit -m "algo"
+git push heroku main
+
+heroku logs

@@ -15,6 +15,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from web.views import IndexView, ResultsView
@@ -24,4 +26,4 @@ urlpatterns = [
     path("", IndexView.as_view(), name="index"),
     path("resultados/<int:id>", ResultsView.as_view(), name="results"),
     path("admin/", admin.site.urls),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
